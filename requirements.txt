@@ -1,4 +1,4 @@
-sklearn 
+sklearn.metrics.pairwise
 sentence_transformers 
 bs4
 streamlit 
