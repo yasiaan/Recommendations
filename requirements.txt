@@ -1,0 +1,7 @@
+sklearn 
+sentence_transformers 
+bs4 import BeautifulSoup 
+streamlit 
+pandas 
+random 
+requests
