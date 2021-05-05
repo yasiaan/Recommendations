@@ -57,7 +57,7 @@ class film_data():
             print("Data scrapped successfully !")
 
     def film_table(self):
-        if self.data = None:
+        if self.data == None:
             self.film_scrap()
             imdb_films = pd.DataFrame()
             imdb_films['titles'] = self.titles
