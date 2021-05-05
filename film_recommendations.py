@@ -121,7 +121,7 @@ if st.button("Top 5 recommendation"):
     index_choosed = box.handler.get_index(choosed)
     recommendations = sorted(list(enumerate(
         box.similarity[index_choosed])), key=lambda x: x[1], reverse=True)
-    recommendations = [r if r[0] != index_choosed else: continue for r in recommendations]
+    recommendations = [r if r[0] != index_choosed else continue for r in recommendations]
     st.header("The top 5 recommendations for" + " " + choosed + " " + "are: ")
     st.success(box.handler.get_title(recommendations[0][0]))
     st.success(box.handler.get_title(recommendations[1][0]))
