@@ -52,7 +52,7 @@ class film_data():
         print(self.titles)
 
     def film_table(self):
-        if self.data == pd.Dataframe():
+        if self.data == pd.DataFrame():
             self.film_scrap()
             imdb_films = pd.DataFrame()
             imdb_films['titles'] = self.titles
