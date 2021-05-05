@@ -51,6 +51,15 @@ class film_data():
         print("Data scrapped successfully !")
         print(self.titles)
 
+      
+    def sentence(self,m):
+        # Encoding the descriptions and do the cosine similarity
+
+        bert = SentenceTransformer('bert-base-nli-mean-tokens')
+        movies = movie_rec(self.data).get_movies()
+        sentence_embeddings = bert.encode(movies['descriptions'].tolist())
+        similarity = cosine_similarity(sentence_embeddings)
+        
     def film_table(self):
         if not 'titles' in self.data.columns:
             self.film_scrap()
@@ -61,6 +70,7 @@ class film_data():
             imdb_films['descriptions'] = self.descriptions
             imdb_films['genres'] = self.genres
             self.data = imdb_films
+            self.sentence()
         return self.data
 
 class movie_rec():
@@ -102,13 +112,7 @@ data = film_data("https://www.imdb.com/list/ls068082370/")
 choosed = st.selectbox("Please Choose the movie for which you want recommendations :",
                        tuple(data.film_table()['titles']))
 
-# Encoding the descriptions and do the cosine similarity
 
-bert = SentenceTransformer('bert-base-nli-mean-tokens')
-movie_handler = movie_rec(data.film_table())
-movies = movie_handler.get_movies()
-sentence_embeddings = bert.encode(movies['descriptions'].tolist())
-similarity = cosine_similarity(sentence_embeddings)
 
 if st.button("Top 5 recommendation"):
     recommendations = sorted(list(enumerate(
