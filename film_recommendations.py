@@ -6,7 +6,6 @@ import pandas as pd
 import random as rd
 import requests
 
-
 class film_data():
 
     def __init__(self, url):
@@ -16,7 +15,9 @@ class film_data():
         self.rates = []
         self.descriptions = []
         self.genres = []
-
+        self.scrapped = 0
+        self.data = None
+ 
     def film_scrap(self):
         while self.url is not None:
 #         while self.url is not None:
@@ -56,15 +57,16 @@ class film_data():
             print("Data scrapped successfully !")
 
     def film_table(self):
-        self.film_scrap()
-        imdb_films = pd.DataFrame()
-        imdb_films['titles'] = self.titles
-        imdb_films['year'] = self.year
-        imdb_films['rates'] = self.rates
-        imdb_films['descriptions'] = self.descriptions
-        imdb_films['genres'] = self.genres
-        return imdb_films
-
+        if self.data = None:
+            self.film_scrap()
+            imdb_films = pd.DataFrame()
+            imdb_films['titles'] = self.titles
+            imdb_films['year'] = self.year
+            imdb_films['rates'] = self.rates
+            imdb_films['descriptions'] = self.descriptions
+            imdb_films['genres'] = self.genres
+            self.data = imdb_films
+        return self.data
 
 class movie_rec():
 
@@ -100,15 +102,15 @@ class movie_rec():
 # Template part
 st.title("Movie recommendation :")
 
-data = film_data("https://www.imdb.com/list/ls068082370/").film_table()
+data = film_data("https://www.imdb.com/list/ls068082370/")
 
-choosed = st.selectbox("Please Choose the movie for which you want recommendations : :",
+choosed = st.selectbox("Please Choose the movie for which you want recommendations :",
                        tuple(data['titles']))
 
 # Encoding the descriptions and do the cosine similarity
 
 bert = SentenceTransformer('bert-base-nli-mean-tokens')
-movie_handler = movie_rec(data)
+movie_handler = movie_rec(data.film_table())
 movies = movie_handler.get_movies()
 sentence_embeddings = bert.encode(movies['descriptions'].tolist())
 similarity = cosine_similarity(sentence_embeddings)
