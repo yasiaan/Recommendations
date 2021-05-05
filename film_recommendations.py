@@ -52,7 +52,7 @@ class film_data():
         print(self.titles)
 
     def film_table(self):
-        if 'titles' is not in self.data.columns:
+        if not 'titles' in self.data.columns:
             self.film_scrap()
             imdb_films = pd.DataFrame()
             imdb_films['titles'] = self.titles
