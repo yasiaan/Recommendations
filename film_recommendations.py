@@ -90,7 +90,7 @@ class movie_rec():
     def get_year(self, index):
         return self.movies[self.movies.index == index]["year"].values[0]
 
-    def get_movies(self, genre):
+    def get_movies_genre(self, genre):
         return self.movies[self.movies.genres == genre]
 
 
