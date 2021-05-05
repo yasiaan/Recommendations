@@ -17,6 +17,7 @@ class film_data():
         self.genres = []
         self.scrapped = 0
         self.data = pd.DataFrame()
+        self.similarity = None
  
     def film_scrap(self):
 #         while self.url is not None:
@@ -56,9 +57,9 @@ class film_data():
         # Encoding the descriptions and do the cosine similarity
 
         bert = SentenceTransformer('bert-base-nli-mean-tokens')
-        movies = movie_rec(self.data).get_movies()
-        sentence_embeddings = bert.encode(movies['descriptions'].tolist())
+        sentence_embeddings = bert.encode(self.data['descriptions'].tolist())
         similarity = cosine_similarity(sentence_embeddings)
+        self.similarity = similarity
         
     def film_table(self):
         if not 'titles' in self.data.columns:
@@ -69,7 +70,7 @@ class film_data():
             imdb_films['rates'] = self.rates
             imdb_films['descriptions'] = self.descriptions
             imdb_films['genres'] = self.genres
-            self.data = imdb_films
+            self.data = movie_rec(imdb_films).get_movies()
             self.sentence()
         return self.data
 
@@ -107,15 +108,15 @@ class movie_rec():
 # Template part
 st.title("Movie recommendation :")
 
-data = film_data("https://www.imdb.com/list/ls068082370/")
-
+box = film_data("https://www.imdb.com/list/ls068082370/")
+box.film_table()
 choosed = st.selectbox("Please Choose the movie for which you want recommendations :",
-                       tuple(data.film_table()['titles']))
+                       tuple(box.data['titles']))
 
 
 
 if st.button("Top 5 recommendation"):
     recommendations = sorted(list(enumerate(
-        similarity[movie_handler.get_index(choosed)])), key=lambda x: x[1], reverse=True)
+        box.similarity[self.data.get_index(choosed)])), key=lambda x: x[1], reverse=True)
     st.write("The top 5 recommendations for" + " " + choosed + " " + "are: " + movie_handler.get_title(recommendations[0][0]) + movie_handler.get_title(recommendations[1][0]) + movie_handler.get_title(
         recommendations[2][0]) + movie_handler.get_title(recommendations[3][0]) + movie_handler.get_title(recommendations[4][0]) + movie_handler.get_title(recommendations[5][0]))
