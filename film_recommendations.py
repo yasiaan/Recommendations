@@ -18,6 +18,7 @@ class film_data():
         self.scrapped = 0
         self.data = pd.DataFrame()
         self.similarity = None
+        self.handler = None
  
     def film_scrap(self):
 #         while self.url is not None:
@@ -70,7 +71,8 @@ class film_data():
             imdb_films['rates'] = self.rates
             imdb_films['descriptions'] = self.descriptions
             imdb_films['genres'] = self.genres
-            self.data = movie_rec(imdb_films).get_movies()
+            self.handler = movie_rec(imdb_films)
+            self.data = self.handler.get_movies()
             self.sentence()
         return self.data
 
@@ -117,6 +119,6 @@ choosed = st.selectbox("Please Choose the movie for which you want recommendatio
 
 if st.button("Top 5 recommendation"):
     recommendations = sorted(list(enumerate(
-        box.similarity[box.data.get_index(choosed)])), key=lambda x: x[1], reverse=True)
+        box.similarity[box.handler.get_index(choosed)])), key=lambda x: x[1], reverse=True)
     st.write("The top 5 recommendations for" + " " + choosed + " " + "are: " + movie_handler.get_title(recommendations[0][0]) + movie_handler.get_title(recommendations[1][0]) + movie_handler.get_title(
         recommendations[2][0]) + movie_handler.get_title(recommendations[3][0]) + movie_handler.get_title(recommendations[4][0]) + movie_handler.get_title(recommendations[5][0]))
