@@ -1,6 +1,6 @@
 sklearn
-sentence_transformers 
-bs4
+sentence_transformers.SentenceTransformer
+bs4.BeautifulSoup
 streamlit 
 pandas 
 requests
