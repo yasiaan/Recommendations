@@ -49,6 +49,7 @@ class film_data():
 #         except:
 #             print("There is a problem scrapping this URL :" + self.url)
         print("Data scrapped successfully !")
+        print(self.titles)
 
     def film_table(self):
         if self.data == None:
