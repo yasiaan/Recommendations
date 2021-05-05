@@ -120,7 +120,7 @@ choosed = st.selectbox("Please Choose the movie for which you want recommendatio
 if st.button("Top 5 recommendation"):
     recommendations = sorted(list(enumerate(
         box.similarity[box.handler.get_index(choosed)])), key=lambda x: x[1], reverse=True)
-    st.hedear("The top 5 recommendations for" + " " + choosed + " " + "are: ")
+    st.header("The top 5 recommendations for" + " " + choosed + " " + "are: ")
     st.success(box.handler.get_title(recommendations[0][0]))
     st.success(box.handler.get_title(recommendations[1][0]))
     st.success(box.handler.get_title(recommendations[2][0]))
