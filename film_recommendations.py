@@ -110,8 +110,9 @@ st.title("Movie recommendation :")
 
 box = film_data("https://www.imdb.com/list/ls068082370/")
 box.film_table()
+titles = box.data['titles']
 choosed = st.selectbox("Please Choose the movie for which you want recommendations :",
-                       tuple(box.data['titles']))
+                       tuple(titles))
 
 
 
