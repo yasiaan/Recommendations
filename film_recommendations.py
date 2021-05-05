@@ -52,7 +52,7 @@ class film_data():
         print(self.titles)
 
       
-    def sentence(self,m):
+    def sentence(self):
         # Encoding the descriptions and do the cosine similarity
 
         bert = SentenceTransformer('bert-base-nli-mean-tokens')
