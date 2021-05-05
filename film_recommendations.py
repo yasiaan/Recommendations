@@ -16,7 +16,7 @@ class film_data():
         self.descriptions = []
         self.genres = []
         self.scrapped = 0
-        self.data = pd.Dataframe()
+        self.data = pd.DataFrame()
  
     def film_scrap(self):
 #         while self.url is not None:
