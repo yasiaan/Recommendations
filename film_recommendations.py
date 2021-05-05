@@ -16,7 +16,7 @@ class film_data():
         self.descriptions = []
         self.genres = []
         self.scrapped = 0
-        self.data = 0
+        self.data = pd.Dataframe()
  
     def film_scrap(self):
 #         while self.url is not None:
@@ -52,7 +52,7 @@ class film_data():
         print(self.titles)
 
     def film_table(self):
-        if self.data == 0:
+        if self.data == pd.Dataframe():
             self.film_scrap()
             imdb_films = pd.DataFrame()
             imdb_films['titles'] = self.titles
