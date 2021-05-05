@@ -100,7 +100,7 @@ st.title("Movie recommendation :")
 data = film_data("https://www.imdb.com/list/ls068082370/")
 
 choosed = st.selectbox("Please Choose the movie for which you want recommendations :",
-                       tuple(data['titles']))
+                       tuple(data.film_table()['titles']))
 
 # Encoding the descriptions and do the cosine similarity
 
