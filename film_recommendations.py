@@ -35,14 +35,10 @@ class film_data():
                 item_head[1].find('p', class_='').text.strip('\n      ')
 
                 self.titles.extend([t.find('a').text for t in item_head])
-                self.year.extend([y.find('span', class_='lister-item-year text-muted unbold').text.strip(
-                    ')').strip('(') for y in item_head])
-                self.rates.extend(
-                    [r.find('span', class_='ipl-rating-star__rating').text for r in item_head])
-                self.descriptions.extend(
-                    [d.find('p', class_='').text.strip('\n      ') for d in item_head])
-                self.genres.extend([g.find('span', class_='genre').text.strip()
-                                    for g in item_head])
+                self.year.extend([y.find('span', class_='lister-item-year text-muted unbold').text.strip(')').strip('(') for y in item_head])
+                self.rates.extend([r.find('span', class_='ipl-rating-star__rating').text for r in item_head])
+                self.descriptions.extend([d.find('p', class_='').text.strip('\n      ') for d in item_head])
+                self.genres.extend([g.find('span', class_='genre').text.strip()for g in item_head])
 
                 item_footer = soup.find_all('div', class_='footer filmosearch')
                 for x in item_footer:
@@ -53,7 +49,6 @@ class film_data():
                     self.url = None
             except:
                 print("There is a problem scrapping this URL :" + self.url)
-                continue
             print("Data scrapped successfully !")
 
     def film_table(self):
