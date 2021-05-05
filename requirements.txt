@@ -1,6 +1,7 @@
 sklearn
 sentence_transformers
 beautifulsoup4
+lxml
 streamlit 
 pandas 
 requests
