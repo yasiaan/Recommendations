@@ -21,37 +21,35 @@ class film_data():
         self.handler = None
  
     def film_scrap(self):
-#         while self.url is not None:
-#         try:
-        response = requests.get(self.url)
+        while self.url is not None:
+            try:
+                response = requests.get(self.url)
 
-        html = response.content
+                html = response.content
 
-        soup = bsp(html, 'lxml')
+                soup = bsp(html, 'lxml')
 
-        with open('IMDB_HTML_LXML', 'wb') as file:
-            file.write(soup.prettify('utf-8'))
+                with open('IMDB_HTML_LXML', 'wb') as file:
+                    file.write(soup.prettify('utf-8'))
 
-        item_head = soup.find_all('div', class_='lister-item-content')
-        item_head[1].find('p', class_='').text.strip('\n      ')
+                item_head = soup.find_all('div', class_='lister-item-content')
+                item_head[1].find('p', class_='').text.strip('\n      ')
 
-        self.titles.extend([t.find('a').text for t in item_head])
-        self.year.extend([y.find('span', class_='lister-item-year text-muted unbold').text.strip(')').strip('(') for y in item_head])
-        self.rates.extend([r.find('span', class_='ipl-rating-star__rating').text for r in item_head])
-        self.descriptions.extend([d.find('p', class_='').text.strip('\n      ') for d in item_head])
-        self.genres.extend([g.find('span', class_='genre').text.strip()for g in item_head])
+                self.titles.extend([t.find('a').text for t in item_head])
+                self.year.extend([y.find('span', class_='lister-item-year text-muted unbold').text.strip(')').strip('(') for y in item_head])
+                self.rates.extend([r.find('span', class_='ipl-rating-star__rating').text for r in item_head])
+                self.descriptions.extend([d.find('p', class_='').text.strip('\n      ') for d in item_head])
+                self.genres.extend([g.find('span', class_='genre').text.strip()for g in item_head])
 
-        item_footer = soup.find_all('div', class_='footer filmosearch')
-        for x in item_footer:
-            self.url = x.find_all('a')[1]['href']
-        if self.url.startswith("/list"):
-            self.url = "https://www.imdb.com" + self.url
-        else:
-            self.url = None
-#         except:
-#             print("There is a problem scrapping this URL :" + self.url)
-        print("Data scrapped successfully !")
-        print(self.titles)
+                item_footer = soup.find_all('div', class_='footer filmosearch')
+                for x in item_footer:
+                    self.url = x.find_all('a')[1]['href']
+                if self.url.startswith("/list"):
+                    self.url = "https://www.imdb.com" + self.url
+                else:
+                    self.url = None
+            except:
+                print("There is a problem scrapping this URL :" + self.url)
 
       
     def sentence(self):
